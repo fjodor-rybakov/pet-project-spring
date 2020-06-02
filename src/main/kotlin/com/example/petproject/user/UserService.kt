@@ -1,20 +1,12 @@
 package com.example.petproject.user
 
-import com.example.petproject.user.dto.response.UserResponseDto
 import com.example.petproject.user.dto.response.toUserResponseDto
-import com.example.petproject.user.exception.UserNotFoundException
-import com.example.petproject.user.repository.UserRepository
+import com.example.petproject.user.repository.UserRepositoryImpl
 import org.springframework.stereotype.Service
 
 @Service
 class UserService(
-        private var userRepository: UserRepository
+        private var userRepositoryImpl: UserRepositoryImpl
 ) {
-    fun getUserById(id: Long): UserResponseDto {
-        val user = this.userRepository.findById(id)
-        if (user.isEmpty) {
-            throw UserNotFoundException()
-        }
-        return this.userRepository.findById(id).get().toUserResponseDto()
-    }
+    fun getUserById(id: Long) = this.userRepositoryImpl.findUserByIdOrFail(id).toUserResponseDto()
 }
