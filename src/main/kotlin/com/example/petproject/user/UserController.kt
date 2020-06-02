@@ -4,7 +4,7 @@ import com.example.petproject.user.dto.response.UserResponseDto
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping(value = ["user"])
+@RequestMapping("user")
 class UserController(
         private val userService: UserService
 ) {
