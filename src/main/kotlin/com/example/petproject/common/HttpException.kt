@@ -1,4 +1,4 @@
-package com.example.petproject.user.exception
+package com.example.petproject.common
 
 import org.springframework.http.HttpStatus
 

@@ -1,5 +1,7 @@
 package com.example.petproject.user
 
+import com.example.petproject.user.dto.request.QueryDto
+import com.example.petproject.user.dto.request.create.UserCreateDto
 import com.example.petproject.user.dto.response.UserResponseDto
 import org.springframework.web.bind.annotation.*
 
@@ -10,4 +12,13 @@ class UserController(
 ) {
     @GetMapping("/{id}")
     fun getUserById(@PathVariable id: Long): UserResponseDto = userService.getUserById(id)
+
+    @GetMapping
+    fun getAllUserList(
+            @ModelAttribute
+            requestQuery: QueryDto
+    ): List<UserResponseDto> = userService.getAllUserList(requestQuery)
+
+    @PostMapping
+    fun createUser(@RequestBody newUserData: UserCreateDto): UserResponseDto = userService.createUser()
 }

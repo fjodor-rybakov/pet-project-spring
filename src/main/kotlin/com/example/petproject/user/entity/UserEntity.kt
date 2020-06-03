@@ -2,7 +2,7 @@ package com.example.petproject.user.entity
 
 import javax.persistence.*
 
-@Entity(name="`user`")
+@Entity
 @Table(name="`user`")
 class UserEntity(
         val firstName: String,
