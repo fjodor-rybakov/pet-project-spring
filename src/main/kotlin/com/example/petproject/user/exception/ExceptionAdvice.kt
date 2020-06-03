@@ -1,5 +1,6 @@
 package com.example.petproject.user.exception
 
+import com.example.petproject.user.exception.custom.UserNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
