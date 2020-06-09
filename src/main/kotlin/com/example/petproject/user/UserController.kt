@@ -2,6 +2,7 @@ package com.example.petproject.user
 
 import com.example.petproject.user.dto.request.QueryDto
 import com.example.petproject.user.dto.request.create.UserCreateDto
+import com.example.petproject.user.dto.request.update.UserUpdateDto
 import com.example.petproject.user.dto.response.UserResponseDto
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.*
@@ -22,6 +23,13 @@ class UserController(
     ): List<UserResponseDto> = userService.getAllUserList(requestQuery)
 
     @PostMapping
-    fun createUser(@Valid @RequestBody newUserData: UserCreateDto): UserResponseDto =
-        userService.createUser(newUserData)
+    fun createUser(
+            @Valid @RequestBody newUserData: UserCreateDto
+    ): UserResponseDto = userService.createUser(newUserData)
+
+    @PutMapping("{id}")
+    fun updateUser(
+            @PathVariable id: Long,
+            @Valid @RequestBody updateDto: UserUpdateDto
+    ): UserResponseDto = userService.updateUser(id, updateDto)
 }

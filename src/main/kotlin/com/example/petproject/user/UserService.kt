@@ -3,10 +3,18 @@ package com.example.petproject.user
 import com.example.petproject.user.dto.request.QueryDto
 import com.example.petproject.user.dto.request.create.UserCreateDto
 import com.example.petproject.user.dto.request.create.toUserEntity
+import com.example.petproject.user.dto.request.update.UserUpdateDto
 import com.example.petproject.user.dto.response.UserResponseDto
 import com.example.petproject.user.dto.response.toUserResponseDto
+import com.example.petproject.user.mapper.UserMapper
 import com.example.petproject.user.repository.UserRepository
+import org.aspectj.asm.IProgramElement.Accessibility.PRIVATE
+import org.modelmapper.ModelMapper
+import org.modelmapper.config.Configuration
+import org.modelmapper.convention.MatchingStrategies
+import org.springframework.beans.BeanUtils
 import org.springframework.stereotype.Service
+
 
 @Service
 class UserService(
@@ -21,5 +29,16 @@ class UserService(
         val userEntity = newUserData.toUserEntity()
         userEntity.age = newUserData.age
         return this.userRepository.save(userEntity).toUserResponseDto()
+    }
+
+    fun updateUser(id: Long, updateDto: UserUpdateDto): UserResponseDto {
+        val currentUserEntity = this.userRepository.findUserByIdOrFail(id)
+        val modelMapper = ModelMapper()
+        modelMapper.configuration
+                .setFieldMatchingEnabled(true)
+                .setSkipNullEnabled(true)
+                .fieldAccessLevel = Configuration.AccessLevel.PRIVATE
+        modelMapper.map(updateDto, currentUserEntity)
+        return this.userRepository.save(currentUserEntity).toUserResponseDto()
     }
 }

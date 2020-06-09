@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  database:
+    image: postgres:latest
+    container_name: pet-project-db
+    restart: always
+    ports:
+      - ${EXTERNAL_DB_PORT:-9090}:${INTERNAL_DB_PORT:-5432}
+    environment:
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASS:-3iJSGAWceYCY}
+      - POSTGRES_DB=${DB_NAME:-postgres}
