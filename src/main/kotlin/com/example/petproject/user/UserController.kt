@@ -1,10 +1,10 @@
 package com.example.petproject.user
 
+import com.example.petproject.common.dto.MessageResponseDto
 import com.example.petproject.user.dto.request.QueryDto
 import com.example.petproject.user.dto.request.create.UserCreateDto
 import com.example.petproject.user.dto.request.update.UserUpdateDto
 import com.example.petproject.user.dto.response.UserResponseDto
-import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
@@ -18,8 +18,7 @@ class UserController(
 
     @GetMapping
     fun getAllUserList(
-            @ModelAttribute
-            requestQuery: QueryDto
+            @ModelAttribute requestQuery: QueryDto
     ): List<UserResponseDto> = userService.getAllUserList(requestQuery)
 
     @PostMapping
@@ -32,4 +31,7 @@ class UserController(
             @PathVariable id: Long,
             @Valid @RequestBody updateDto: UserUpdateDto
     ): UserResponseDto = userService.updateUser(id, updateDto)
+
+    @DeleteMapping("{id}")
+    fun deleteUser(@PathVariable id: Long): MessageResponseDto = userService.deleteUser(id)
 }
