@@ -7,15 +7,14 @@ import com.example.petproject.user.dto.request.create.toUserEntity
 import com.example.petproject.user.dto.request.update.UserUpdateDto
 import com.example.petproject.user.dto.response.UserResponseDto
 import com.example.petproject.user.dto.response.toUserResponseDto
-import com.example.petproject.user.entity.UserEntity
 import com.example.petproject.user.repository.UserRepository
 import org.modelmapper.ModelMapper
-import org.modelmapper.config.Configuration
 import org.springframework.stereotype.Service
 
 @Service
 class UserService(
-        private var userRepository: UserRepository
+        private val userRepository: UserRepository,
+        private val modelMapper: ModelMapper
 ) {
     fun getUserById(id: Long) = userRepository.findUserByIdOrFail(id).toUserResponseDto()
 
@@ -30,7 +29,7 @@ class UserService(
 
     fun updateUser(id: Long, updateDto: UserUpdateDto): UserResponseDto {
         val currentUserEntity = this.userRepository.findUserByIdOrFail(id)
-        mapUserUpdateDtoToUserEntity(updateDto, currentUserEntity)
+        modelMapper.map(updateDto, currentUserEntity)
         return this.userRepository.save(currentUserEntity).toUserResponseDto()
     }
 
@@ -38,14 +37,5 @@ class UserService(
         val currentUserEntity = this.userRepository.findUserByIdOrFail(id)
         this.userRepository.delete(currentUserEntity)
         return MessageResponseDto("User success deleted!")
-    }
-
-    private fun mapUserUpdateDtoToUserEntity(updateDto: UserUpdateDto, currentUserEntity: UserEntity) {
-        val modelMapper = ModelMapper()
-        modelMapper.configuration
-                .setFieldMatchingEnabled(true)
-                .setSkipNullEnabled(true)
-                .fieldAccessLevel = Configuration.AccessLevel.PRIVATE
-        modelMapper.map(updateDto, currentUserEntity)
     }
 }
