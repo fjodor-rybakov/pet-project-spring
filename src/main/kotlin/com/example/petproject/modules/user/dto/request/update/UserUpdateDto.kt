@@ -1,4 +1,4 @@
-package com.example.petproject.user.dto.request.update
+package com.example.petproject.modules.user.dto.request.update
 
 import javax.validation.constraints.Min
 import javax.validation.constraints.Size

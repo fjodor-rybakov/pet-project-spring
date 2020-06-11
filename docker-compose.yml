@@ -11,3 +11,36 @@ services:
       - POSTGRES_USER=${DB_USER:-postgres}
       - POSTGRES_PASSWORD=${DB_PASS:-3iJSGAWceYCY}
       - POSTGRES_DB=${DB_NAME:-postgres}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+#    networks:
+#      - keycloak-network
+
+#  keycloak:
+#    image: jboss/keycloak:latest
+#    container_name: pet-project-keycloak
+#    environment:
+#      DB_VENDOR: POSTGRES
+#      DB_ADDR: database # Имя сервиса базы данных
+#      DB_DATABASE: ${DB_NAME:-postgres}
+#      DB_USER: ${DB_USER:-postgres}
+#      DB_SCHEMA: public
+#      DB_PASSWORD: ${DB_PASS:-3iJSGAWceYCY}
+#      KEYCLOAK_USER: admin
+#      KEYCLOAK_PASSWORD: Pa55w0rd
+#      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+#      #JDBC_PARAMS: "ssl=true"
+#    ports:
+#      - 8008:8080
+#    depends_on:
+#      - database
+#    networks:
+#      - keycloak-network
+#
+#networks:
+#  keycloak-network:
+#    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local

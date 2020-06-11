@@ -1,6 +1,9 @@
 package com.example.petproject.common.exception
 
-import com.example.petproject.user.exception.UserNotFoundException
+import com.example.petproject.modules.user.exception.UserNotFoundException
+import org.hibernate.exception.ConstraintViolationException
+import org.springframework.core.Ordered
+import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.FieldError
@@ -12,7 +15,14 @@ import java.util.*
 import java.util.function.Consumer
 
 @ControllerAdvice
+@Order(Ordered.LOWEST_PRECEDENCE)
 class ExceptionAdvice {
+    @ExceptionHandler(RuntimeException::class)
+    fun handleRunTimeException(e: RuntimeException) = ResponseEntity<HttpException>(
+            HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR),
+            HttpStatus.INTERNAL_SERVER_ERROR
+    )
+
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handleValidationExceptions(e: MethodArgumentNotValidException): ResponseEntity<Map<String, HttpException>> {
         val errors: MutableMap<String, HttpException> = HashMap()
@@ -23,12 +33,6 @@ class ExceptionAdvice {
         })
         return ResponseEntity(errors, HttpStatus.BAD_REQUEST)
     }
-
-    @ExceptionHandler(RuntimeException::class)
-    fun handleRunTimeException(e: RuntimeException) = ResponseEntity<HttpException>(
-            HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR),
-            HttpStatus.INTERNAL_SERVER_ERROR
-    )
 
     @ExceptionHandler(UserNotFoundException::class)
     fun handleNotFoundException(e: UserNotFoundException) = ResponseEntity<HttpException>(

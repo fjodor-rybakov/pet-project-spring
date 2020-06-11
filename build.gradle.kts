@@ -10,7 +10,7 @@ plugins {
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_14
 
 repositories {
 	mavenCentral()
@@ -20,6 +20,11 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springframework.security:spring-security-core")
+	implementation("org.springframework.security:spring-security-config")
+	implementation("org.springframework.security:spring-security-web")
+	implementation("org.springframework.security:spring-security-jwt:1.1.1.RELEASE")
+	implementation("io.jsonwebtoken:jjwt:0.9.1")
 
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.springdoc:springdoc-openapi-ui:1.4.0")

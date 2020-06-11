@@ -1,13 +1,13 @@
-package com.example.petproject.user
+package com.example.petproject.modules.user
 
 import com.example.petproject.common.dto.MessageResponseDto
-import com.example.petproject.user.dto.request.QueryDto
-import com.example.petproject.user.dto.request.create.UserCreateDto
-import com.example.petproject.user.dto.request.create.toUserEntity
-import com.example.petproject.user.dto.request.update.UserUpdateDto
-import com.example.petproject.user.dto.response.UserResponseDto
-import com.example.petproject.user.dto.response.toUserResponseDto
-import com.example.petproject.user.repository.UserRepository
+import com.example.petproject.modules.user.dto.request.QueryDto
+import com.example.petproject.modules.user.dto.request.create.UserCreateDto
+import com.example.petproject.modules.user.dto.request.create.toUserEntity
+import com.example.petproject.modules.user.dto.request.update.UserUpdateDto
+import com.example.petproject.modules.user.dto.response.UserResponseDto
+import com.example.petproject.modules.user.dto.response.toUserResponseDto
+import com.example.petproject.modules.user.repository.UserRepository
 import org.modelmapper.ModelMapper
 import org.springframework.stereotype.Service
 

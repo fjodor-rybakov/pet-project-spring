@@ -1,6 +1,6 @@
-package com.example.petproject.user.dto.response
+package com.example.petproject.modules.user.dto.response
 
-import com.example.petproject.user.entity.UserEntity
+import com.example.petproject.modules.user.entity.UserEntity
 
 data class UserResponseDto(
         val id: Long,

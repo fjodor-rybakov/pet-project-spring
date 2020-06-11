@@ -1,12 +1,11 @@
-package com.example.petproject.user.repository
+package com.example.petproject.modules.user.repository
 
-import com.example.petproject.user.dto.request.QueryDto
-import com.example.petproject.user.entity.UserEntity
-import com.example.petproject.user.exception.UserNotFoundException
+import com.example.petproject.modules.user.dto.request.QueryDto
+import com.example.petproject.modules.user.entity.UserEntity
+import com.example.petproject.modules.user.exception.UserNotFoundException
 import javax.persistence.EntityManager
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.Root
-
 
 class UserCustomRepositoryImpl(
         private val userRepository: UserRepository,
@@ -27,4 +26,7 @@ class UserCustomRepositoryImpl(
 
         return entityManager.createQuery(query).resultList
     }
+
+    override fun findUserNicknameAndPasswordOrFail(nickname: String, password: String): UserEntity =
+            userRepository.findByNicknameAndPassword(nickname, password).orElseThrow { UserNotFoundException() }
 }
