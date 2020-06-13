@@ -1,7 +1,6 @@
 package com.example.petproject.common.exception
 
 import com.example.petproject.modules.user.exception.UserNotFoundException
-import org.hibernate.exception.ConstraintViolationException
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
