@@ -17,6 +17,8 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.web.servlet.config.annotation.CorsRegistry
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
 @EnableWebSecurity
@@ -26,7 +28,7 @@ class WebSecurityConfig(
         private val jwtUserDetailsService: UserDetailsService,
         private val jwtRequestFilter: JwtRequestFilter
 
-) : WebSecurityConfigurerAdapter() {
+) : WebSecurityConfigurerAdapter(), WebMvcConfigurer {
     @Autowired
     @Throws(Exception::class)
     fun configureGlobal(auth: AuthenticationManagerBuilder) {
@@ -50,7 +52,10 @@ class WebSecurityConfig(
     @Throws(Exception::class)
     override fun configure(httpSecurity: HttpSecurity) {
     // We don't need CSRF for this example
-        httpSecurity.csrf().disable() // dont authenticate this particular request
+        httpSecurity
+                .cors()
+                .and()
+                .csrf().disable() // dont authenticate this particular request
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/user", "/authenticate")
                 .permitAll()
@@ -64,5 +69,11 @@ class WebSecurityConfig(
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         // Add a filter to validate the tokens with every request
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter::class.java)
+    }
+
+    override fun addCorsMappings(registry: CorsRegistry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:3000")
+                .allowedMethods("*")
     }
 }
