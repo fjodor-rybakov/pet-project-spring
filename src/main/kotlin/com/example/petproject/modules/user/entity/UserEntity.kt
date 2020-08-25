@@ -1,7 +1,5 @@
 package com.example.petproject.modules.user.entity
 
-import org.aspectj.lang.annotation.Before
-import org.hibernate.validator.constraints.UniqueElements
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import javax.persistence.*
 

@@ -5,10 +5,7 @@ import com.example.petproject.modules.user.dto.request.QueryDto
 import com.example.petproject.modules.user.dto.request.create.UserCreateDto
 import com.example.petproject.modules.user.dto.request.update.UserUpdateDto
 import com.example.petproject.modules.user.dto.response.UserResponseDto
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties.Jwt
-import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
-import java.util.*
 import javax.validation.Valid
 
 
